@@ -1,0 +1,2 @@
+example-design-pattern-bridge
+=============================
