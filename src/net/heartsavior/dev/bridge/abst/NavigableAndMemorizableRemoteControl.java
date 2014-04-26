@@ -3,26 +3,29 @@ package net.heartsavior.dev.bridge.abst;
 import net.heartsavior.dev.bridge.impl.NavigableAndMemorizableTV;
 
 public class NavigableAndMemorizableRemoteControl extends NavigableRemoteControl {
+    protected NavigableAndMemorizableTV tv;
+
     public void memorizeCurrentChannel() {
         System.out.println("controller> Memorize channel");
 
-        if (!(tv instanceof NavigableAndMemorizableTV)) {
-            System.out.println("controller> No response - maybe not supported");
-            return;
-        }
-
-        ((NavigableAndMemorizableTV)tv).memorizeCurrentChannel();
+        if (tv != null)
+            tv.memorizeCurrentChannel();
+        else
+            System.out.println("controller> Not supported operation for this TV");
     }
 
     public void forgetCurrentChannel() {
         System.out.println("controller> Forget channel");
 
-        if (!(tv instanceof NavigableAndMemorizableTV)) {
-            System.out.println("controller> No response - maybe not supported");
-            return;
-        }
+        if (tv != null)
+            tv.forgetCurrentChannel();
+        else
+            System.out.println("controller> Not supported operation for this TV");
 
-        ((NavigableAndMemorizableTV)tv).forgetCurrentChannel();
     }
 
+    public void setTv(NavigableAndMemorizableTV tv) {
+        this.tv = tv;
+        super.setTv(tv);
+    }
 }

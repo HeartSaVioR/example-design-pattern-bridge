@@ -3,6 +3,8 @@ package net.heartsavior.dev;
 import net.heartsavior.dev.bridge.abst.NavigableAndMemorizableRemoteControl;
 import net.heartsavior.dev.bridge.abst.NavigableRemoteControl;
 import net.heartsavior.dev.bridge.abst.RemoteControl;
+import net.heartsavior.dev.bridge.impl.NavigableAndMemorizableTV;
+import net.heartsavior.dev.bridge.impl.NavigableTV;
 import net.heartsavior.dev.bridge.impl.TV;
 import net.heartsavior.dev.bridge.impl.product.Philips;
 import net.heartsavior.dev.bridge.impl.product.Sony;
@@ -25,36 +27,33 @@ public class TVUser {
 
     private static void testRemoteControl() {
         RemoteControl controller = new RemoteControl();
-        TVFactory factory = new TVFactory();
-        controller.setTv(factory.createTV(TVFactory.TVKind.PHILIPS));
+        controller.setTv(new Philips());
         controlTV(controller);
-        controller.setTv(factory.createTV(TVFactory.TVKind.SONY));
+        controller.setTv(new Sony());
         controlTV(controller);
-        controller.setTv(factory.createTV(TVFactory.TVKind.SONYV2));
+        controller.setTv(new SonyV2());
         controlTV(controller);
 
     }
 
     private static void testNavigableRemoteControl() {
         NavigableRemoteControl controller = new NavigableRemoteControl();
-        TVFactory factory = new TVFactory();
-        controller.setTv(factory.createTV(TVFactory.TVKind.PHILIPS));
+        controller.setTv(new Philips());
         controlNavigableTV(controller);
-        controller.setTv(factory.createTV(TVFactory.TVKind.SONY));
+        controller.setTv(new Sony());
         controlNavigableTV(controller);
-        controller.setTv(factory.createTV(TVFactory.TVKind.SONYV2));
+        controller.setTv(new SonyV2());
         controlNavigableTV(controller);
 
     }
 
     private static void testNavigableAndMemorizableRemoteControl() {
         NavigableAndMemorizableRemoteControl controller = new NavigableAndMemorizableRemoteControl();
-        TVFactory factory = new TVFactory();
-        controller.setTv(factory.createTV(TVFactory.TVKind.PHILIPS));
+        controller.setTv(new Philips());
         conrtolNavigableAndMemorizableTV(controller);
-        controller.setTv(factory.createTV(TVFactory.TVKind.SONY));
+        controller.setTv(new Sony());
         conrtolNavigableAndMemorizableTV(controller);
-        controller.setTv(factory.createTV(TVFactory.TVKind.SONYV2));
+        controller.setTv(new SonyV2());
         conrtolNavigableAndMemorizableTV(controller);
 
     }
@@ -81,7 +80,13 @@ public class TVUser {
 
     private static void conrtolNavigableAndMemorizableTV(NavigableAndMemorizableRemoteControl controller) {
         controller.on();
-        controller.setChannel(15);
+        controller.setChannel(6);
+        controller.memorizeCurrentChannel();
+        controller.setChannel(7);
+        controller.memorizeCurrentChannel();
+        controller.setChannel(9);
+        controller.memorizeCurrentChannel();
+        controller.setChannel(11);
         controller.memorizeCurrentChannel();
         controller.nextChannel();
         controller.nextChannel();
@@ -91,24 +96,5 @@ public class TVUser {
         controller.off();
         controller.on();
         controller.off();
-    }
-
-    static class TVFactory {
-        public static enum TVKind {
-            SONY, SONYV2, PHILIPS
-        }
-
-        public TV createTV(TVKind kind) {
-            switch (kind) {
-                case SONY:
-                    return new Sony();
-                case PHILIPS:
-                    return new Philips();
-                case SONYV2:
-                    return new SonyV2();
-            }
-            return null;
-        }
-
     }
 }

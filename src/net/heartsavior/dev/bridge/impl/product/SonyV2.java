@@ -14,6 +14,11 @@ public class SonyV2 extends Sony implements NavigableAndMemorizableTV {
 
     @Override
     public void nextChannel() {
+        if (memorizedChannels.isEmpty()) {
+            super.nextChannel();
+            return;
+        }
+
         int idx = memorizedChannels.indexOf(channel);
         int nextIndex = 0;
 
@@ -26,6 +31,11 @@ public class SonyV2 extends Sony implements NavigableAndMemorizableTV {
 
     @Override
     public void prevChannel() {
+        if (memorizedChannels.isEmpty()) {
+            super.prevChannel();
+            return;
+        }
+
         int idx = memorizedChannels.indexOf(channel);
         int nextIndex = 0;
 

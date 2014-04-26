@@ -22,5 +22,7 @@ public class RemoteControl {
 
     public void setTv(TV tv) {
         this.tv = tv;
+        System.out.println("controller> //////////////// Set TV to " + tv.getClass().getSimpleName() +
+                " ////////////////");
     }
 }
